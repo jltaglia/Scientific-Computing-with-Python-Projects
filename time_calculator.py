@@ -60,9 +60,6 @@ def add_time(start, duration, *start_day):
             medios_dias = int((horas + hors_d + mas_horas_x_min) / 12)
             mas_dias = int(medios_dias / 2)
             horas_totales = horas
-            # esta linea ASI funciona para todo el resto de las pruebas
-            # horas_resto = (horas + hors_d + mas_horas_x_min) % 12
-
             horas_resto = (hors_d + mas_horas_x_min) % 12
 
 
@@ -72,8 +69,6 @@ def add_time(start, duration, *start_day):
                 mas_dias = mas_dias + nvo_merid[1]
 
             if not horas_resto == 0:
-                # esta linea ASI funciona para todo el resto de las pruebas
-                # horas_totales = horas + horas_totales + horas_resto
                 horas_totales = horas_totales + horas_resto
 
                 if horas_totales >= 12:
@@ -111,29 +106,12 @@ def add_time(start, duration, *start_day):
 
     else:
         dia_d = (start_day[0]).lower().capitalize()
-
-        # print("dia_d", dia_d)
-
         dias_resto = mas_dias % 7
         nuevo_dia = semana.index(dia_d) + dias_resto
 
         if nuevo_dia > 6:
             nuevo_dia = nuevo_dia - 7
-
-        # print("nuevo_dia", nuevo_dia)
-
         str_day = ", " + semana[nuevo_dia]
-
-    # print("horas, minutos, merid", horas, minutos, merid)
-    # print("horsD, minsD", hors_d, mins_d)
-    # print("masHorasxMin", mas_horas_x_min)
-    # print("horasTotales", horas_totales)
-    # print("minutosTot", minutos_tot)
-    # print("horas_resto", horas_resto)
-    # print("mediosDias", medios_dias)
-    # print("masDias", mas_dias)
-    # print("nvo_merid", nvo_merid)
-    # print("meridiano", merid)
 
     if mas_dias == 0:
         new_time = str(horas_totales) + ":" + \
@@ -149,15 +127,4 @@ def add_time(start, duration, *start_day):
     return new_time
 
 
-# print(add_time("3:00 PM", "3:10"))
-# print(add_time("11:30 AM", "2:32", "Monday"))
-# print(add_time("11:43 PM", "00:20"))
-# print(add_time("10:10 PM", "3:30"))
-# print(add_time("11:43 PM", "24:20", "tueSday"))
-# print(add_time("6:30 PM", "205:12"))
-# print(add_time("2:59 AM", "72:00"))
-# print(add_time("11:40 AM", "0:25"))
-# print(add_time("8:16 PM", "466:02", "tuesday"))
-
-# errores
 print(add_time("11:59 PM", "24:05"))
