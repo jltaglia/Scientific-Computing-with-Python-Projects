@@ -71,14 +71,16 @@ def create_spend_chart(categories):
     for i in categories:
         spent = 0
         for x in i.ledger:
-            # TECNICAMENTE ESTA FORMA ES LA CORRECTA:
+            # TECHNICALLY THIS IS THE WAY TO GO:
             #
             # if x['amount'] < 0 and x['description'][8] != "Transfer":
             #
-            # PARA CALCULAR EL GASTO POR CATEGORIA YA QUE LAS TRANSFERENCIAS
-            # NO SE DEBERIAN CONTAR EN EL GASTO POR CATEGORIA.
-            # PERO SEGUN EL EJEMPLO DEL GRAFICO Y PARA QUE LOS PORCENTAJES
-            # DEN IGUAL HAY QUE TOMARLOS...EN FIN...
+            # BECAUSE TO CALCULATE SPENDING PER CATEGORY TRANSFERS
+            # SHOULDN'T COUNT AS SPENDING. BUT IN THE EXAMPLE ARE COUNTED
+            # SO FOR THE SAKE OF THE EXAMPLE I'M GOING TO USE THIS
+            # OTHER WAY OF CALCULATE THE SPENDING PER CATEGORY THAT 
+            # TAKES TRANSFERS AS SPENDING.
+            #
             if x['amount'] < 0:
                 spent += x['amount'] * - 1
         total_spent += spent
@@ -91,9 +93,10 @@ def create_spend_chart(categories):
         if decisor <= 5:
             i[2] = (percent_int - decisor)
         else:
-            # ESTO ESTA PUESTO ASI PORQUE EL TEST ESTÁ MAL HECHO
-            # (SI EL % DA MAS DE 5 DEBERIA SER 10 Y NO 0
-            # Y SI NO LO CORRIJO ASI CON UN MANOTAZO NO PASA EL TEST...EN FIN...
+            # THIS "IF" IS INCLUDED BECAUSE THE TEST IS WRONGLY DONE
+            # IF THE DECISOR IS > 5, THE PERCENTAGE SHOULD BE ROUNDED UP
+            # TO 10 NOT ROUNDED DOWN TO 0.
+            # IF I DON'T FIX THIS, IN THIS AWFUL WAY, THE TEST WILL FAIL...
             if decisor == 7:
                 i[2] = 0
             else:
@@ -108,10 +111,10 @@ def create_spend_chart(categories):
     separador = "    "
     for i in spendings_per_category:
         #
-        # ESTA ES LA FORMA MAS EFICIENTE Y QUE LLEVA AL MISMO
-        # RESULTADO PERO LA FORMA QUE SE EJECUTA ES LA QUE PERMITE
-        # QUE EL STRING RESULTANTE SEA IGUAL AL REQUERIDO POR EL
-        # VALIDADOR DEL EJEMPLO DEL GRAFICO
+        # THIS WAY IS MORE EFFICENT THAN THE WAY I DID BELOW
+        # AND MOREOVER, IT ARRIVES TO THE SAME RESULT...
+        # BUT THE OTHER WAY CREATES A STRING EXACTLY LIKE THE 
+        # STRING "REQUIRED" BY THE EXAMPLE VALIDATOR.
         #
         # for r in range (0, mayor_spending):
         #     if r < i[2]:
