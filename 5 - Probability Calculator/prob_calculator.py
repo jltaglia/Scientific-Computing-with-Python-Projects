@@ -2,7 +2,6 @@ import copy
 import random
 from collections import Counter
 
-
 class Hat:
     def __init__(self, **kwargs):
         self.kwargs = kwargs
@@ -59,8 +58,9 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     The experiment function should return a probability.
     '''
     m = 0
-    test_hat = copy.deepcopy(hat)
+    # test_hat = copy.deepcopy(hat)
     for i in range(num_experiments):
+        test_hat = copy.deepcopy(hat)
         drawed_balls = Counter(test_hat.draw(num_balls_drawn))
 
         is_contained = []
