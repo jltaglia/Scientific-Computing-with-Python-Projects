@@ -23,14 +23,11 @@ class Hat:
             if num_balls > self.total:
                 num_balls = self.total
 
-            new_contents = copy.deepcopy(self.contents)
             balls_draw = []
 
             for i in range(num_balls):
-                ball_no = random.randint(0, len(new_contents) - 1)
-                balls_draw.append(new_contents[ball_no])
-                new_contents.pop(ball_no)
-
+                ball_no = random.randint(0, len(self.contents) - 1)
+                balls_draw.append(self.contents[ball_no])
                 self.contents.pop(ball_no)
                 self.total -= 1
 
@@ -42,6 +39,7 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     This function should accept the following arguments:
     hat:
         A hat object containing balls that should be copied inside the function.
+        (uses the class Hat created above)
 
     expected_balls:
         An object indicating the exact group of balls to attempt to draw from the 
@@ -55,10 +53,12 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         (The more experiments performed, the more accurate the approximate probability
          will be.)
 
-    The experiment function should return a probability.
+    The experiment function returns a probability expresed as:
+                          number of successful experiments (m)
+        probability = --------------------------------------------
+                       total qty of experiments (num_experiments)
     '''
     m = 0
-    # test_hat = copy.deepcopy(hat)
     for i in range(num_experiments):
         test_hat = copy.deepcopy(hat)
         drawed_balls = Counter(test_hat.draw(num_balls_drawn))
@@ -72,5 +72,6 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
 
         if not False in is_contained:
             m += 1
-
-    return m/num_experiments
+    
+    probability = m / num_experiments
+    return probability
