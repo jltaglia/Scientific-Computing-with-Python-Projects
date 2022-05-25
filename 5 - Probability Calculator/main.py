@@ -1,0 +1,64 @@
+import prob_calculator
+
+prob_calculator.random.seed(95)
+# hat = prob_calculator.Hat(blue=4, red=2, green=6)
+
+# hat = prob_calculator.Hat(red=3,blue=2)
+# print(hat.contents)
+# print(hat)
+
+# hat = prob_calculator.Hat(red=5,blue=2)
+# actual = hat.draw(2)
+# expected = ['blue', 'red']
+
+# print('actual ->', actual)
+# print('expected ->', expected)
+
+
+# actual = len(hat.contents)
+# expected = 5
+
+# print('actual ->', actual)
+# print('expected ->', expected)
+
+
+# probability = prob_calculator.experiment(
+#     hat=hat,
+#     expected_balls={"blue": 2,
+#                     "red": 1},
+#     num_balls_drawn=4,
+#     num_experiments=3000)
+
+# print("Probability:", probability)
+
+
+hat = prob_calculator.Hat(blue=3, red=2, green=6)
+probability = prob_calculator.experiment(
+                hat=hat, 
+                expected_balls={"blue": 2, "green": 1},
+                num_balls_drawn=4,
+                num_experiments=10)
+actual = probability
+expected = 0.272
+
+print('actual ->', actual)
+print('expected ->', expected)
+
+
+# actual, expected, delta = 0.01, msg = 'Expected experiment method to return a different probability.'
+
+print('------------------------')
+
+
+hat = prob_calculator.Hat(yellow=5, red=1, green=3, blue=9, test=1)
+probability = prob_calculator.experiment(
+                hat=hat,
+                expected_balls={"yellow": 2, "blue": 3, "test": 1},
+                num_balls_drawn=20,
+                num_experiments=100)
+actual = probability
+expected = 1.0
+# actual, expected, delta = 0.01, msg = 'Expected experiment method to return a different probability.'
+
+print('actual ->', actual)
+print('expected ->', expected)
